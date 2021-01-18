@@ -34,13 +34,12 @@ def translate(event, context):
     resultTranslate = translate.translate_text(Text=jsoncomprehen['text'], 
         SourceLanguageCode=langSource, TargetLanguageCode=targetLanguage['lang'])
     
-    itemJson['text'] = resultTranslate
+    jsoncomprehen['text'] = resultTranslate
 
     # create a response
     response = {
         "statusCode": 200,
-        "body": json.dumps(itemJson,
-                           cls=decimalencoder.DecimalEncoder)
+        "body": jsoncomprehen
     }
 
     return response
