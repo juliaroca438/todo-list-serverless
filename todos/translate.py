@@ -24,7 +24,8 @@ def translate(event, context):
     langsourceJson=comprehend.detect_dominant_language(Text=jsoncomprehen['text'])
     print(langsourceJson)
     langSource=langsourceJson['Languages'][0]['LanguageCode']
-    targetLanguage=event['pathParameters']['id']['lang']
+    targetLanguage=json.loads(event)
+    #['pathParameters']['id']['lang']
 #
     #print(langSource)
     #
