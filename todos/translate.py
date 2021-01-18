@@ -29,22 +29,18 @@ def translate(event, context):
     targetLanguage={
         'lang': event['pathParameters']['lang']
     }
-    #translate = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
-#
-    #resultTranslate = translate.translate_text(Text=jsoncomprehen['text'], 
-    #    SourceLanguageCode=langSource, TargetLanguageCode=targetLanguage)
-    #
-    #itemJson['text'] = resultTranslate
-#
-    ## create a response
-    #response = {
-    #    "statusCode": 200,
-    #    "body": json.dumps(itemJson,
-    #                       cls=decimalencoder.DecimalEncoder)
-    #}
+    translate = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
+
+    resultTranslate = translate.translate_text(Text=jsoncomprehen['text'], 
+        SourceLanguageCode=langSource, TargetLanguageCode=targetLanguage['lang'])
+    
+    itemJson['text'] = resultTranslate
+
+    # create a response
     response = {
         "statusCode": 200,
-        "body": targetLanguage
+        "body": json.dumps(itemJson,
+                           cls=decimalencoder.DecimalEncoder)
     }
 
     return response
