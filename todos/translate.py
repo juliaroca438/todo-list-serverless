@@ -15,6 +15,7 @@ def translate(event, context):
             'id': event['pathParameters']['id']
         }
     )
+    print(result)
     itemJson = json.dumps(result['Item'],cls=decimalencoder.DecimalEncoder)
     
     comprehend = boto3.client(service_name='comprehend', region_name='us-east-1')
