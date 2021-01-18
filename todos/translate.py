@@ -17,7 +17,7 @@ def translate(event, context):
     )
     print(resultTable)
 
-    itemJson = json.loads(resultTable['Item'])
+    itemJson = resultTable['Item']
     comprehend = boto3.client(service_name='comprehend', region_name='us-east-1')
 
     langsourceJson=comprehend.detect_dominant_language(Text=itemJson['text'], sort_keys=True, indent=4)
