@@ -29,7 +29,7 @@ def translate(event, context):
     
     translate = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
 
-    resultTranslate = translate.translate_text(Text=itemJson['text'], 
+    resultTranslate = translate.translate_text(Text=jsoncomprehen['text'], 
         SourceLanguageCode=langSource, TargetLanguageCode=event['pathParameters']['id']['lang'])
     
     itemJson['text'] = resultTranslate
