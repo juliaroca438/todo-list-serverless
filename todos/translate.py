@@ -23,14 +23,15 @@ def translate(event, context):
 
     langsourceJson=comprehend.detect_dominant_language(Text=jsoncomprehen['text'])
     print(langsourceJson)
-    langSource=langsourceJson['Languages'][0]['LanguageCode']
+    langSource=json.loads(langsourceJson['Languages'][0]['LanguageCode'])
+    targetLanguage=json.loads(event['pathParameters']['id']['lang'])
 
     print(langSource)
     
     translate = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
 
     resultTranslate = translate.translate_text(Text=jsoncomprehen['text'], 
-        SourceLanguageCode=langSource, TargetLanguageCode=event['pathParameters']['id']['lang'])
+        SourceLanguageCode=langSource, TargetLanguageCode=targetLanguage)
     
     itemJson['text'] = resultTranslate
 
