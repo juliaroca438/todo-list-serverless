@@ -10,14 +10,14 @@ def translate(event, context):
     table = dynamodb.Table(os.environ['DYNAMODB_TABLE'])
 
     # fetch todo from the database
-    result = table.get_item(
+    resultTable = table.get_item(
         Key={
             'id': event['pathParameters']['id']
         }
     )
-    print(result)
-    itemJson = json.dumps(result['Item'],cls=decimalencoder.DecimalEncoder)
-    
+    print(resultTable)
+
+    itemJson = json.loads(resultTable['Item'])
     comprehend = boto3.client(service_name='comprehend', region_name='us-east-1')
 
     langsourceJson=comprehend.detect_dominant_language(Text=itemJson['text'], sort_keys=True, indent=4)
