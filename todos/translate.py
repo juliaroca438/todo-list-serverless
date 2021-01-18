@@ -15,12 +15,16 @@ def translate(event, context):
             'id': event['pathParameters']['id']
         }
     )
+    print(resultTable)
 
-    itemJson = json.loads(result['Item'])
+    itemJson = json.loads(resultTable['Item'])
     comprehend = boto3.client(service_name='comprehend', region_name='us-east-1')
 
     langsourceJson=comprehend.detect_dominant_language(Text=itemJson['text'], sort_keys=True, indent=4)
+    print(langsourceJson)
     langSource=langsourceJson['Languages'][0]['LanguageCode']
+
+    print(langSource)
     
     translate = boto3.client(service_name='translate', region_name='us-east-1', use_ssl=True)
 
